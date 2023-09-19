@@ -1,0 +1,10 @@
+Name player:
+Player
+Board
+|   |   |   |   |   |   |   |   |   |
+Word
+test
+Failed attempts:
+0
+Selected letters:
+#
