@@ -1,0 +1,10 @@
+Name player:
+Jose
+Board
+|   |   |   |   |   |   |   |   |   |
+Word
+costarica
+Failed attempts:
+0
+Selected letters:
+#
