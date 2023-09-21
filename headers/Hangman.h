@@ -21,8 +21,10 @@ private:
     bool saveGame(const string &fileName);
     void printBoard();
     void enterLetter(char letter);
-    bool checkBoard(string &board);
+    bool checkBoard(string &board); // Chea si el tablero del txt contiene algo.
     string showWord();
+    bool wantsToQuit();
+    bool wantsToSave();
 
 public:
     Hangman();

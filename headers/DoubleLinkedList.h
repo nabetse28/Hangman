@@ -13,15 +13,15 @@ public:
     Node<T> *prev;
     Node<T> *next;
 
-    Node(T value) : data(value), prev(NULL), next(NULL) {} // Es lo mismo que vimos en clases.
+    Node(T value) : data(value), prev(nullptr), next(nullptr) {} // Es lo mismo que vimos en clases.
 };
 
 template <class T>
 class DoubleLinkedList
 {
 public:
-    int size;                                               // Tamaño de la doble lista enlazada
-    DoubleLinkedList() : size(0), head(NULL), tail(NULL){}; // Inicializacion de size, head, tail.
+    int size;                                                     // Tamaño de la doble lista enlazada
+    DoubleLinkedList() : size(0), head(nullptr), tail(nullptr){}; // Inicializacion de size, head, tail.
     ~DoubleLinkedList()
     {
         clear(); // Libera memoria
@@ -66,13 +66,13 @@ public:
         if (head == tail)
         {
             delete head;
-            head = tail = NULL;
+            head = tail = nullptr;
         }
         else
         {
             Node<T> *temp = head;
             head = head->next;
-            head->prev = NULL;
+            head->prev = nullptr;
             delete temp;
         }
         this->size--;
@@ -88,13 +88,13 @@ public:
         if (head == tail)
         {
             delete tail;
-            head = tail = NULL;
+            head = tail = nullptr;
         }
         else
         {
             Node<T> *temp = tail;
             tail = tail->prev;
-            tail->next = NULL;
+            tail->next = nullptr;
             delete temp;
         }
         this->size--;
@@ -103,7 +103,7 @@ public:
     bool remove(T value)
     {
         Node<T> *current = head;
-        while (current != NULL)
+        while (current != nullptr)
         {
             if (current->data == value)
             {
@@ -139,7 +139,7 @@ public:
         Node<T> *current = head;
         int currentIndex = 0;
 
-        while (current != NULL)
+        while (current != nullptr)
         {
             if (currentIndex == index)
             {
@@ -153,7 +153,7 @@ public:
         return T();
     };
 
-    void set(int index, T value)
+    void set(int index, T value) // Modifica el dato que esta en el indice indicado.
     {
         if (index < 0)
         {
@@ -178,7 +178,7 @@ public:
     };
     bool isEmpty()
     {
-        return head == NULL;
+        return head == nullptr;
     };
     void clear()
     {
@@ -191,7 +191,7 @@ public:
     {
         Node<T> *current = head;
         cout << "[";
-        while (current->next != NULL)
+        while (current->next != nullptr)
         {
             cout << current->data << ",";
             current = current->next;

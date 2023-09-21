@@ -35,9 +35,18 @@ void Hangman::play()
     {
         return;
     }
+    bool saved = false;
 
     while (lives > 0 && showWord() != originalWord)
     {
+        if (wantsToQuit())
+            break;
+        if (wantsToSave())
+        {
+            saveGame(savedFileName);
+            saved = true;
+            break;
+        }
         printBoard();
 
         cout << "Enter a letter: ";
@@ -59,10 +68,29 @@ void Hangman::play()
     {
         cout << "Congratulations! You won! The word is: " << originalWord << endl;
     }
+    else if (saved)
+    {
+        cout << "You saved the game!" << endl;
+    }
     else
     {
         cout << "Sorry, you lost. The word was: " << originalWord << endl;
     }
+}
+bool Hangman::wantsToQuit()
+{
+    char choice;
+    cout << "Do you want to exit the game? (Y/N): ";
+    cin >> choice;
+    return (choice == 'Y' || choice == 'y');
+}
+
+bool Hangman::wantsToSave()
+{
+    char choice;
+    cout << "Do you want to save the game? (Y/N): ";
+    cin >> choice;
+    return (choice == 'Y' || choice == 'y');
 }
 
 bool Hangman::loadGame(const string &fileName)
@@ -162,8 +190,34 @@ bool Hangman::loadGame(const string &fileName)
 
 bool Hangman::saveGame(const string &fileName)
 {
-
-    return true;
+    ofstream outputFile(fileName);
+    if (outputFile.is_open())
+    {
+        outputFile << "Name player:" << endl
+                   << playerName << endl;
+        outputFile << "Board" << endl;
+        outputFile << "| ";
+        for (int i = 0; i < gameWord.size; i++)
+        {
+            if (i == gameWord.size - 1)
+            {
+                outputFile << gameWord.get(i) << " |" << endl;
+            }
+            else
+            {
+                outputFile << gameWord.get(i) << " | ";
+            }
+        }
+        outputFile << "Word" << endl
+                   << originalWord << endl;
+        outputFile << "Failed attempts:" << endl
+                   << 8 - lives << endl;
+        outputFile << "Selected letters:" << endl
+                   << enteredLetters;
+        outputFile.close();
+        return true;
+    }
+    return false;
 }
 
 void Hangman::enterLetter(char letter)

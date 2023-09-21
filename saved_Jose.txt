@@ -1,10 +1,10 @@
 Name player:
 Jose
 Board
-|   |   |   |   |   |   |   |   |   |
+|   |   |   |   |   |   |  |   |
 Word
-costarica
+COSTARICA
 Failed attempts:
-0
+1
 Selected letters:
 #
