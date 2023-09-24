@@ -6,31 +6,31 @@
 
 using namespace std;
 
-// Implementación del constructor de Hangman
+// Hangman constructor implementation
 Hangman::Hangman()
 {
     lives = 8;
     originalWord = "";
     enteredLetters = "";
 }
-
-// Implementación del destructor para liberar la memoria de los nodos de la lista
+// Implementation of the destructor to free the memory of the list nodes
 Hangman::~Hangman()
 {
     gameWord.clear();
 }
 
+//  * Plays the Hangman game.
+//  * @throws ErrorType if there is an error loading the game
 void Hangman::play()
 {
     cout << "Welcome to Hangman Game!" << endl;
 
     string savedFileName;
-
-    // Pedir al usuario el nombre del archivo de guardado
+    // Ask the user for the name of the save file
 
     cout << "Enter the name of file from which you want to load: ";
     cin >> savedFileName;
-    // Cargar el juego si existe
+    // Load the game if it exists
     if (!loadGame(savedFileName))
     {
         return;
@@ -55,7 +55,7 @@ void Hangman::play()
 
         if (isalpha(letter))
         {
-            letter = toupper(letter); // Convertir la palabra ingresada en mayuscula
+            letter = toupper(letter); // Convert the entered word to uppercase
             enterLetter(letter);
         }
         else
@@ -77,6 +77,8 @@ void Hangman::play()
         cout << "Sorry, you lost. The word was: " << originalWord << endl;
     }
 }
+//  * Determines if the player wants to quit the game.
+//  * @return True if the player wants to quit, false otherwise.
 bool Hangman::wantsToQuit()
 {
     char choice;
@@ -85,6 +87,8 @@ bool Hangman::wantsToQuit()
     return (choice == 'Y' || choice == 'y');
 }
 
+//  * Prompt the user if they want to save the game.
+//  * @return true if the user wants to save the game, false otherwise.
 bool Hangman::wantsToSave()
 {
     char choice;
@@ -93,6 +97,10 @@ bool Hangman::wantsToSave()
     return (choice == 'Y' || choice == 'y');
 }
 
+//  * Loads a game from a file.
+//  * @param fileName the name of the file to load the game from
+//  * @return true if the game was successfully loaded, false otherwise
+//  * @throws None
 bool Hangman::loadGame(const string &fileName)
 {
     ifstream inputFile(fileName);
@@ -112,7 +120,7 @@ bool Hangman::loadGame(const string &fileName)
         }
         else
         {
-            cout << "Wrong format for 'Name player'" << endl; // El Throw es como un cou << endl.
+            cout << "Wrong format for 'Name player'" << endl; // The Throw is like a cout << endl.
         }
         getline(inputFile, boardHeader); // Header Board name
         if (boardHeader.find("Board") != std::string::npos)
@@ -132,10 +140,11 @@ bool Hangman::loadGame(const string &fileName)
             // {
             //     originalWord += toupper(word[i]);
             // }
-            for (auto &c : word) // automaticamente agarra los indices 1*1
+
+            for (auto &c : word) // automatically grabs the indices 1 by 1.
                 originalWord += toupper(c);
 
-            if (!checkBoard(board)) // revisa si no hay ninguna letra dentro de board. Si no encontro nada lo inicializa como vacio.
+            if (!checkBoard(board)) // check if there are no letters inside board. If it didn't find anything, it initializes it as empty.
             {
                 for (int i = 0; i < originalWord.length(); ++i)
                 {
@@ -160,7 +169,7 @@ bool Hangman::loadGame(const string &fileName)
         if (line.find("Failed attempts") != std::string::npos)
         {
             getline(inputFile, loadedLives);
-            lives = lives - stoi(loadedLives); // String to int. Pasar un string a un Int.
+            lives = lives - stoi(loadedLives); // String to int. Go from string data to int data
         }
         else
         {
@@ -187,6 +196,10 @@ bool Hangman::loadGame(const string &fileName)
     inputFile.close();
     return false;
 }
+// Saves the current game state to a file.
+//   param fileName the name of the file to save to
+//  return true if the game was successfully saved, false otherwise
+//   @throws ofstream::failure if the file cannot be opened for writing
 
 bool Hangman::saveGame(const string &fileName)
 {
@@ -219,15 +232,18 @@ bool Hangman::saveGame(const string &fileName)
     }
     return false;
 }
-
+// Updates the game state based on the letter entered by the player.
+//  * @param letter The letter entered by the player.
+//  * @return None.
+//  * @throws None.
 void Hangman::enterLetter(char letter)
 {
 
-    // Verificar si la letra está en la palabra original
+    // Check if the letter is in the original word
     bool letterGuessed = false;
     bool letterUsed = false;
 
-    for (int i = 0; i < enteredLetters.size(); i++)
+    for (int i = 0; i < static_cast<int>(enteredLetters.size()); i++)
     {
         if (enteredLetters[i] == letter)
         {
@@ -243,7 +259,7 @@ void Hangman::enterLetter(char letter)
 
     enteredLetters += letter;
 
-    for (int i = 0; i < originalWord.size(); i++)
+    for (int i = 0; i < static_cast<int>(originalWord.length()); i++)
     {
         if (originalWord[i] == letter)
         {
@@ -252,12 +268,13 @@ void Hangman::enterLetter(char letter)
         }
     }
 
-    if (!letterGuessed) // Perder vidas si se equivoca
+    if (!letterGuessed) // Lose lives if you make a mistake
     {
         --lives;
     }
 }
 
+//  * Returns the word to be displayed in the Hangman game.
 string Hangman::showWord()
 {
     string displayedWord;
@@ -269,15 +286,17 @@ string Hangman::showWord()
 
     return displayedWord;
 }
-
+//  * Prints the Hangman board to the console.
 void Hangman::printBoard()
 {
+    cout << "Name player:" << endl
+         << playerName << endl;
     cout << "Board" << endl;
     string displayWord = showWord();
     cout << "| ";
-    for (int i = 0; i < displayWord.size(); i++)
+    for (int i = 0; i < static_cast<int>(displayWord.size()); i++)
     {
-        if (i == displayWord.size() - 1)
+        if (i == static_cast<int>(displayWord.size()) - 1)
         {
             cout << displayWord[i] << " |" << endl;
         }
@@ -294,13 +313,17 @@ void Hangman::printBoard()
         << "Selected letters:" << endl;
     cout << enteredLetters << endl;
 }
-
+//  * Check if the hangman board is loaded.
+//  * @param board the hangman board to check
+//  * @return true if the board is loaded, false otherwise
+//  * @throws None
 bool Hangman::checkBoard(string &board)
 {
     bool isLoaded = false;
-    for (int i = 0; i <= board.length(); i++)
+    for (int i = 0; i < board.length(); i++)
     {
-        if (board[i] != '|' || board[i] != ' ')
+
+        if (board[i] != '|' && board[i] != ' ')
         {
             isLoaded = true;
         }
