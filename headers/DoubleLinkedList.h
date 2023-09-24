@@ -5,28 +5,32 @@
 
 using namespace std;
 
-template <class T> // Hace la clase generica, puede utilizar cualquier tipo de dato para instanciar esta clase.
+template <class T> // // Makes the class generic, you can use any data type to instantiate this class.
 class Node
 {
 public:
-    T data; // T : tipo de dato que solicito.
+    T data; // T: type of data requested.
     Node<T> *prev;
     Node<T> *next;
 
-    Node(T value) : data(value), prev(nullptr), next(nullptr) {} // Es lo mismo que vimos en clases.
+    Node(T value) : data(value), prev(nullptr), next(nullptr) {}
 };
-
+// Pushes a value to the front of the linked list.
+//* @param value the value to be pushed to the front of the list.
+//* @throws None
 template <class T>
 class DoubleLinkedList
 {
 public:
-    int size;                                                     // Tamaño de la doble lista enlazada
-    DoubleLinkedList() : size(0), head(nullptr), tail(nullptr){}; // Inicializacion de size, head, tail.
+    int size;                                                     // Size of the double linked list
+    DoubleLinkedList() : size(0), head(nullptr), tail(nullptr){}; // Initialization of size, head, tail.
     ~DoubleLinkedList()
     {
-        clear(); // Libera memoria
+        clear(); // Free memory
     };
-
+    // Pushes a value to the front of the linked list.
+    //* @param value the value to be pushed to the front of the list.
+    //* @throws None
     void pushFront(T value)
     {
         Node<T> *newNode = new Node<T>(value);
@@ -42,7 +46,10 @@ public:
         }
         this->size++;
     };
-    void pushBack(T value) // Lo mismo anterior para la cola.
+    // Adds a new element to the end of the list.
+    //  * @param value the value of the element to be added
+    //  * @throws None
+    void pushBack(T value)
     {
         Node<T> *newNode = new Node<T>(value);
         if (isEmpty())
@@ -57,7 +64,10 @@ public:
         }
         this->size++;
     };
-    bool popFront() // Extraccion de dato de frente.
+    // Front-end data extraction.
+    // return true if the front data could be extracted, false if the list is empty.
+
+    bool popFront()
     {
         if (isEmpty())
         {
@@ -79,7 +89,8 @@ public:
         return true;
     };
 
-    bool popBack() // Extraccion de dato de atras.
+    //  * @return true if the extraction is successful, false otherwise
+    bool popBack() // Back data extraction.
     {
         if (isEmpty())
         {
@@ -100,6 +111,10 @@ public:
         this->size--;
         return true;
     };
+    //  * Removes the specified value from the linked list.
+    //  * param value the value to be removed
+    //  * return true if the value was successfully removed, false otherwise
+    //  * throws None
     bool remove(T value)
     {
         Node<T> *current = head;
@@ -129,7 +144,11 @@ public:
         this->size--;
         return false;
     };
-    T get(int index) // Devuelve el dato que esta en el indice indicado.
+    //* Returns the data that is in the indicated index.
+    // * @param index the index of the data to be returned
+    // * @return the data that is in the indicated index
+    // * @throws None
+    T get(int index) // Returns the data that is at the indicated index.
     {
         if (index < 0)
         {
@@ -152,8 +171,11 @@ public:
         cout << "Index out of bounds" << endl;
         return T();
     };
-
-    void set(int index, T value) // Modifica el dato que esta en el indice indicado.
+    //  * Modifies the data at the specified index.
+    //  * @param index the index of the data to be modified
+    //  * @param value the new value to be set
+    //  * @throws None
+    void set(int index, T value) // Modifies the data that is in the indicated index.
     {
         if (index < 0)
         {
@@ -176,10 +198,14 @@ public:
 
         cout << "Index out of bounds" << endl;
     };
+    //  * Checks if the linked list is empty.
+    //  * @return true if the linked list is empty, false otherwise
     bool isEmpty()
     {
         return head == nullptr;
     };
+    //  * Clears the container by repeatedly calling the `popFront` function until the container is empty.
+    //  * @throws None
     void clear()
     {
         while (!isEmpty())
@@ -187,6 +213,10 @@ public:
             popFront();
         }
     };
+    //  Prints the elements of the linked list.
+    //   @param None
+    //   @return None
+    //   @throws None
     void print()
     {
         Node<T> *current = head;
