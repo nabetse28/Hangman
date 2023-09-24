@@ -7,21 +7,22 @@
 
 using namespace std;
 
+// The code is defining a class called `Hangman`.
 class Hangman
 {
 private:
-    int lives; // Numero de vidas.
+    int lives; // Number of lives
 
-    string playerName;               // Nombre de jugador
-    string originalWord;             // La palabra a advinar
-    string enteredLetters;           // Ingreso de letras del jugador
-    DoubleLinkedList<char> gameWord; // Doble lista enlazada. Le especifico que esa doble lista es de tipo char.
+    string playerName;               // Player Name
+    string originalWord;             // Guees word
+    string enteredLetters;           // Letters entered
+    DoubleLinkedList<char> gameWord; // The line DoubleLinkedList<char> gameWord; declares a variable named gameWord of type DoubleLinkedList<char>.
 
     bool loadGame(const string &fileName);
     bool saveGame(const string &fileName);
     void printBoard();
     void enterLetter(char letter);
-    bool checkBoard(string &board); // Chea si el tablero del txt contiene algo.
+    bool checkBoard(string &board); // Check if the board is loaded.
     string showWord();
     bool wantsToQuit();
     bool wantsToSave();
